@@ -1,0 +1,77 @@
+extends layout
+
+block content
+	script(type='text/javascript', src='/javascripts/movie.js')
+	div.center.container#inputMovie
+		h1= title
+		p Welcome to #{title}
+		input#movieSearch(type="text", placeholder="Enter a movie for info!", name="searchbox")
+
+	div
+		h1.left Movie Title:
+		h3#movieTitle.changeable.right 
+	h3#tagline.changeable.newLine
+
+	div
+		h2.left Status:
+		h3#movieStatus.changeable.right
+
+	div
+		h2.left Movie Description:
+		h3#movieDescription.changeable.right
+
+	div
+		h2.left Movie Length:
+		h3#movieLength.changeable.right
+
+	div
+		h2.left Release Date:
+		h3#releaseDate.changeable.right
+
+	div
+		h2.left Popularity Rating:
+		h3#popularityRating.changeable.right
+
+	div
+		h2.left IMDB Vote Info:
+		h3.left Average:
+		h3#voteAverage.changeable.right
+		h3.left Number of Votes:
+		h3#voteCount.changeable.right
+
+	div
+		h2.left Movie Budget:
+		h3#movieBudget.changeable.right
+
+	div
+		h2.left Total Revenue:
+		h3#totalRevenue.changeable.right
+
+	div
+		h2.left Movie Genres:
+		h3#movieGenres.changeable.right
+
+	div
+		h2.left Movie Home Page:
+		h3#movieHomePage.changeable.right
+
+	div
+		h2.left Original Language:
+		h3#originalLanguage.changeable.right
+
+	div
+		h2.left Languages Spoken in the Film:
+		h3#spokenLanguages.changeable.right
+
+	div
+		h2.left Production Companies:
+		h3#productionCompanies.changeable.right
+
+	div
+		h2.left Production Countries:
+		h3#productionCountries.changeable.right
+
+	div
+		h2.left Movie Pictures:
+		div#moviePictures.changeable.right
+	
