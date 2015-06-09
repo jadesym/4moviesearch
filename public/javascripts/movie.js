@@ -14,6 +14,45 @@ minutesToHours = function(minutes) {
 	return returnString
 }
 
+showMovieData = function(data) {
+	$("h3#movieTitle").text(data.original_title);
+	$("h3#tagline").text(data.tagline);
+	$("h3#movieStatus").text(data['status']);
+	$("h3#movieDescription").text(data.overview);
+
+	// Run time, do rounding and convert mins to hours and mins
+	$("h3#movieLength").text(minutesToHours(data.runtime));
+
+	// Convert 2012-09-28 to date in words
+	$("h3#releaseDate").text(data.release_date);
+	$("h3#popularityRating").text(data.popularity);
+	$("h3#voteAverage").text(data.vote_average + "/10");
+	$("h3#voteCount").text(data.vote_count + " votes");
+	$("h3#movieBudget").text("$" + (data.budget).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+	$("h3#totalRevenue").text("$" + (data.revenue).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+	// var genreList = data.genres;
+	// var genreNameList = [];
+	// $.each(genreList, function(key, value) {
+	// 	genreNameList.push(value.name);
+	// });
+	$("h3#movieGenres").text(dataToListToCommaSeparate(data.genres).join(", "));
+	$("h3#movieHomePage").text(data.homepage);
+	$("h3#originalLanguage").text(data.original_language.toUpperCase());
+
+	// var spokenLanguages = data.spoken_languages;
+	// var spokenList = [];
+	// $.each(spokenList, function(key, value) {
+	// 	spokenList.push(value.name);
+	// });
+	$("h3#spokenLanguages").text(dataToListToCommaSeparate(data.spoken_languages).join(", "));
+
+	$("h3#productionCompanies").text(dataToListToCommaSeparate(data.production_companies).join(", "));
+	$("h3#productionCountries").text(dataToListToCommaSeparate(data.production_countries).join(", "));
+
+}
+
+
 $(document).ready(function() {
 	$('#movieSearch').autocomplete({
 		delay: 300,
@@ -45,46 +84,25 @@ $(document).ready(function() {
 			$(this).val(selectedMovie);
 			var movieId = ui.item.value;
 			// console.log(movieId);
-			var apiKeyString = "?api_key=c4e31caadc8ff16a803c303dfbad9f41";
-			var wurl = "http://api.themoviedb.org/3/movie/" + movieId + apiKeyString;
-			console.log("URL to grab info about movie: " + wurl);
 			$(".changeable").empty();
-			$.get(wurl, function(data) {
-				// console.log("About to grab the specific movie info!");
-				$("h3#movieTitle").text(data.original_title);
-				$("h3#tagline").text(data.tagline);
-				$("h3#movieStatus").text(data['status']);
-				$("h3#movieDescription").text(data.overview);
 
-				// Run time, do rounding and convert mins to hours and mins
-				$("h3#movieLength").text(minutesToHours(data.runtime));
-
-				// Convert 2012-09-28 to date in words
-				$("h3#releaseDate").text(data.release_date);
-				$("h3#popularityRating").text(data.popularity);
-				$("h3#voteAverage").text(data.vote_average + "/10");
-				$("h3#voteCount").text(data.vote_count + " votes");
-				$("h3#movieBudget").text("$" + (data.budget).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-				$("h3#totalRevenue").text("$" + (data.revenue).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-
-				// var genreList = data.genres;
-				// var genreNameList = [];
-				// $.each(genreList, function(key, value) {
-				// 	genreNameList.push(value.name);
-				// });
-				$("h3#movieGenres").text(dataToListToCommaSeparate(data.genres).join(", "));
-				$("h3#movieHomePage").text(data.homepage);
-				$("h3#originalLanguage").text(data.original_language.toUpperCase());
-
-				// var spokenLanguages = data.spoken_languages;
-				// var spokenList = [];
-				// $.each(spokenList, function(key, value) {
-				// 	spokenList.push(value.name);
-				// });
-				$("h3#spokenLanguages").text(dataToListToCommaSeparate(data.spoken_languages).join(", "));
-
-				$("h3#productionCompanies").text(dataToListToCommaSeparate(data.production_companies).join(", "));
-				$("h3#productionCountries").text(dataToListToCommaSeparate(data.production_countries).join(", "));
+			var existsInDB = false;
+			$.ajax({
+				type: "GET",
+				url: 'http://localhost:3000/movies/' + movieId,
+				dataType: 'json',
+				success: function(data) {
+					console.log(data);
+					if (data.hasOwnProperty('original_title')){
+						console.log("Found Original Title!")
+						existsInDB = true;
+						showMovieData(data);
+					}
+					console.log("Successfully got data from api");
+				},
+				error: function(data) {
+					console.log('Could not get data from api!');
+				}
 			});
 
 			var pictureUrl = "http://api.themoviedb.org/3/movie/" + movieId + "/images?api_key=c4e31caadc8ff16a803c303dfbad9f41";
