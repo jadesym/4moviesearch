@@ -8,7 +8,9 @@ var bodyParser = require('body-parser');
 // New Code
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = MONGOLAB_URI;
+var dbURI = process.env.MONGOLAB_URI;
+var db = monk((dbURI || 'localhost:27017') + '/moviesearch');
+// var db = MONGOLAB_URI;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
