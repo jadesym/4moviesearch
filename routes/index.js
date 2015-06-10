@@ -17,7 +17,7 @@ router.get('/movies/:id', function(req, res) {
 	var db = req.db;
 	var collection = db.get('moviecollection');
 	collection.find({'id': id}, function(err, data) {
-		if (data.length >= 1) {
+		if (data) {
 			console.log("FOUND A MATCH!");
 			// movie is found
 			res.send(data[0].data);
