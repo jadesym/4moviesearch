@@ -18,11 +18,12 @@ router.get('/movies/:id', function(req, res) {
 	var collection = db.get('moviecollection');
 	collection.find({'id': id}, function(err, data) {
 		if (data !== undefined) {
+			console.log(data);
 			console.log("FOUND A MATCH!");
 			// movie is found
 			res.send(data[0].data);
-			console.log(data);
 		} else {
+			console.log(data);
 			console.log("Apparently we didn't like what we found!");
 			var apiKeyString = "?api_key=c4e31caadc8ff16a803c303dfbad9f41";
 			var wurl = "https://api.themoviedb.org/3/movie/" + id + apiKeyString;
@@ -33,7 +34,7 @@ router.get('/movies/:id', function(req, res) {
 				json: true
 			}, function(error, response, body) {
 				console.log("We're in!");
-				console.log(body);
+				// console.log(body);
 				res.send(body);
 				collection.insert({'id': id, 'data': body});
 			});
