@@ -17,13 +17,13 @@ router.get('/movies/:id', function(req, res) {
 	var db = req.db;
 	var collection = db.get('moviecollection');
 	collection.find({'id': id}, function(err, data) {
-		if (data !== undefined) {
+		if (data.length >= 1) {
 			console.log(data);
 			console.log("FOUND A MATCH!");
 			// movie is found
 			res.send(data[0].data);
 		} else {
-			console.log(data);
+			// console.log(data);
 			console.log("Apparently we didn't like what we found!");
 			var apiKeyString = "?api_key=c4e31caadc8ff16a803c303dfbad9f41";
 			var wurl = "https://api.themoviedb.org/3/movie/" + id + apiKeyString;
