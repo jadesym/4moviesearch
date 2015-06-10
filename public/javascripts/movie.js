@@ -89,7 +89,7 @@ $(document).ready(function() {
 			var existsInDB = false;
 			$.ajax({
 				type: "GET",
-				url: 'http://localhost:3000/movies/' + movieId,
+				url: '/movies/' + movieId,
 				dataType: 'json',
 				success: function(data) {
 					console.log(data);
