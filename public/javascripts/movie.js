@@ -59,7 +59,7 @@ $(document).ready(function() {
 		minLength: 3,
 		source: function(req, res) {
 			// console.log("Inside autocomplete");
-			var curl = "http://api.themoviedb.org/3/search/movie?api_key=c4e31caadc8ff16a803c303dfbad9f41&query="
+			var curl = "https://api.themoviedb.org/3/search/movie?api_key=c4e31caadc8ff16a803c303dfbad9f41&query="
 			curl += req.term;
 			// console.log(req.term);
 			// console.log(curl);
@@ -105,8 +105,8 @@ $(document).ready(function() {
 				}
 			});
 
-			var pictureUrl = "http://api.themoviedb.org/3/movie/" + movieId + "/images?api_key=c4e31caadc8ff16a803c303dfbad9f41";
-			var pictureBaseLink = "http://image.tmdb.org/t/p/w500";
+			var pictureUrl = "https://api.themoviedb.org/3/movie/" + movieId + "/images?api_key=c4e31caadc8ff16a803c303dfbad9f41";
+			var pictureBaseLink = "https://image.tmdb.org/t/p/w500";
 			$.get(pictureUrl, function(pictureData) {
 				// console.log("Grabbing the movie pictures!");
 				// $("#moviePictures").empty();

@@ -25,7 +25,7 @@ router.get('/movies/:id', function(req, res) {
 		} else {
 			console.log("Apparently we didn't like what we found!");
 			var apiKeyString = "?api_key=c4e31caadc8ff16a803c303dfbad9f41";
-			var wurl = "http://api.themoviedb.org/3/movie/" + id + apiKeyString;
+			var wurl = "https://api.themoviedb.org/3/movie/" + id + apiKeyString;
 			console.log("URL to grab info about movie: " + wurl);
 			request({
 				uri: wurl,
